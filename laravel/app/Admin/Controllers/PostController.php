@@ -4,6 +4,7 @@ namespace App\Admin\Controllers;
 
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\Tag;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -75,14 +76,18 @@ class PostController extends AdminController
         $form = new Form(new Post());
 
         $form->text('title', __('Title'))->rules('required');
-        $form->text('slug', __('Slug'));
+        $form->text('slug', 'Slug')->creationRules(['unique:posts,slug']);
         $form->textarea('description', __('Description'))->rules('required');
-        $form->ckeditor('content', __('Content'))->rules('required');
+        $form->tmeditor('content', __('Content'))->rules('required');
         $form->multipleSelect('category_id', 'Category')
                 ->options(Category::pluck('title', 'id'))
                 ->rules('required');
         $form->image('image', __('Image'));
-        //$form->multipleSelect('tags', 'Tags')->options(Tag::pluck('title', 'id'));
+
+        $form->saving(function (Form $form) {
+            $form->slug = Str::slug($form->title);
+        });
+        $form->multipleSelect('tags', 'Tags')->options(Tag::pluck('title', 'id'));
         return $form;
     }
 }

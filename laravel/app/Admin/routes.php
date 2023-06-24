@@ -15,5 +15,6 @@ Route::group([
     $router->resource('users', UserController::class);
     $router->resource('categories', CategoryController::class);
     $router->resource('posts', PostController::class);
+    $router->resource('tags', TagController::class);    
 
 });
