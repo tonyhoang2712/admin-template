@@ -411,5 +411,12 @@ return [
             'disk' => 'uploads',
             'allowed_ext' => 'jpg,jpeg,png,pdf,doc,docx,zip'
         ],
+        'ckeditor' => [
+            //Set to false if you want to disable this extension
+            'enable' => true,
+            // Editor configuration
+            'config' => [
+            ]
+        ]
     ],
 ];

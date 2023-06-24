@@ -10,6 +10,7 @@
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "intervention/image": "^2.7",
+        "laravel-admin-ext/ckeditor": "^1.0",
         "laravel-admin-ext/config": "^1.1",
         "laravel-admin-ext/grid-sortable": "*",
         "laravel-admin-ext/media-manager": "2.x",
