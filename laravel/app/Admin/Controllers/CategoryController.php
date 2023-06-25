@@ -8,7 +8,6 @@ use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
 use Illuminate\Support\Str;
-
 use App\Http\Controllers\Controller;
 use Encore\Admin\Facades\Admin;
 use Encore\Admin\Layout\Content;
@@ -73,17 +72,24 @@ class CategoryController extends Controller
     {
         return $content
             ->header('Edit Category')
-            ->body($this->form()->edit($id));
+            ->body($this->form($id)->edit($id));
     }
 
-    protected function form()
+    protected function form($id = 0)
     {
-        return Category::form(function (Form $form) {
+        return Category::form(function (Form $form) use ($id) {
             $form->text('title', 'Title')->rules('required');
             $form->text('slug', 'Slug')->creationRules(['unique:categories,slug']);
-            $form->select('parent_id', 'Parent Category')->options(
-                Category::pluck('title', 'id')
-            );
+
+            $form->select('parent_id', 'Parent Category')->options(function() use ($id) {
+
+                $result = $this->buildCategoryOptions();
+
+                return collect($result)->filter(function ($item, $key) use ($id) {
+                    return $key != $id;
+                });
+
+            })->rules('required');
 
             $form->cropper('image', __('Image'))->cRatio(100,100);
             $form->number('order', 'Order')->default(0);

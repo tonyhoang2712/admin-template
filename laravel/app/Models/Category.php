@@ -21,9 +21,36 @@ class Category extends Model
     {
         return $this->belongsTo(Category::class, 'parent_id', 'id');
     }
-
+    public function root()
+    {
+        return $this->where('slug', 'root')->where('active', 1)->first();
+    }
     public function posts()
     {
         return $this->hasMany(Post::class);
+    }
+
+    public function buildCategoryOptions($parentId = 0, $prefix = '')
+    {
+        $options = [];
+        $prefix .= 'ー';
+        if($parentId == 0) {
+            $root = Category::where('slug', 'root')
+            ->where('active', 1)
+            ->first();
+            $options[$root->id] = $root->title;
+            $options += $this->buildCategoryOptions($root->id, $prefix);
+        } else {
+            $categories = Category::where('parent_id', $parentId)
+            ->where('active', 1)
+            ->get();
+            foreach ($categories as $category) {
+                $options[$category->id] = $prefix . $category->title;
+                if ($category->parent_id == $parentId) {
+                    $options += $this->buildCategoryOptions($category->id, $prefix);
+                }
+            }
+        }
+        return $options;
     }
 }
