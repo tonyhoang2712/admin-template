@@ -18,4 +18,7 @@ Route::group([
     $router->resource('tags', TagController::class);   
     $router->resource('menus', MenuController::class);
     $router->resource('menu-positions', MenuPostionController::class);
+    $router->resource('pages', PageController::class);
+    $router->resource('config-header-footers', ConfigHeaderFooterController::class);
+    $router->resource('sliders', SliderController::class);
 });

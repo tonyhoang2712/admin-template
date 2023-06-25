@@ -29,8 +29,14 @@ class MenuPostionController extends AdminController
         $grid->column('id', __('Id'));
         $grid->column('title', __('Title'));
         $grid->column('slug', __('Slug'));
-        $grid->column('created_at', __('Created at'));
-        $grid->column('updated_at', __('Updated at'));
+        $grid->column('created_at', __('Created at'))->display(function ($value) {
+            $datetime = \DateTime::createFromFormat('Y-m-d\TH:i:s.u\Z', $value);
+            return $datetime->format('Y-m-d H:i:s');
+        });
+        $grid->column('updated_at', __('Updated at'))->display(function ($value) {
+            $datetime = \DateTime::createFromFormat('Y-m-d\TH:i:s.u\Z', $value);
+            return $datetime->format('Y-m-d H:i:s');
+        });
 
         return $grid;
     }

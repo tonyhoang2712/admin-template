@@ -34,6 +34,7 @@ class UserController extends AdminController
         $grid->column('remember_token', __('Remember token'));
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
+        $grid->column('active', __('Active'));
 
         return $grid;
     }
@@ -54,8 +55,14 @@ class UserController extends AdminController
         $show->field('email_verified_at', __('Email verified at'));
         $show->field('password', __('Password'));
         $show->field('remember_token', __('Remember token'));
-        $show->field('created_at', __('Created at'));
-        $show->field('updated_at', __('Updated at'));
+        $grid->column('created_at', __('Created at'))->display(function ($value) {
+            $datetime = \DateTime::createFromFormat('Y-m-d\TH:i:s.u\Z', $value);
+            return $datetime->format('Y-m-d H:i:s');
+        });
+        $grid->column('updated_at', __('Updated at'))->display(function ($value) {
+            $datetime = \DateTime::createFromFormat('Y-m-d\TH:i:s.u\Z', $value);
+            return $datetime->format('Y-m-d H:i:s');
+        });
 
         return $show;
     }
@@ -74,6 +81,7 @@ class UserController extends AdminController
         $form->datetime('email_verified_at', __('Email verified at'))->default(date('Y-m-d H:i:s'));
         $form->password('password', __('Password'));
         $form->text('remember_token', __('Remember token'));
+        $form->switch('active', __('Active'))->default(1);
 
         return $form;
     }

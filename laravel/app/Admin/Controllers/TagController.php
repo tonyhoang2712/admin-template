@@ -30,8 +30,14 @@ class TagController extends AdminController
         $grid->column('id', __('Id'));
         $grid->column('title', __('Title'));
         $grid->column('post_id', __('Post id'));
-        $grid->column('created_at', __('Created at'));
-        $grid->column('updated_at', __('Updated at'));
+        $grid->column('created_at', __('Created at'))->display(function ($value) {
+            $datetime = \DateTime::createFromFormat('Y-m-d\TH:i:s.u\Z', $value);
+            return $datetime->format('Y-m-d H:i:s');
+        });
+        $grid->column('updated_at', __('Updated at'))->display(function ($value) {
+            $datetime = \DateTime::createFromFormat('Y-m-d\TH:i:s.u\Z', $value);
+            return $datetime->format('Y-m-d H:i:s');
+        });
         $grid->column('active', __('Active'));
 
         return $grid;
@@ -66,7 +72,7 @@ class TagController extends AdminController
     {
         $form = new Form(new Tag());
 
-        $form->text('title', __('Title'));
+        $form->tags('title', __('Title'));
         $form->multipleSelect('post_id', 'Post')
                 ->options(Post::pluck('title', 'id'))
                 ->rules('required');
