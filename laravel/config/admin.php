@@ -160,6 +160,7 @@ return [
             'image' => 'images',
             'file'  => 'files',
         ],
+        'host' => 'http://localhost:8888/storage'
     ],
 
     /*

@@ -14,7 +14,7 @@ class AddDeletedAtToPagesTable extends Migration
     public function up()
     {
         Schema::table('pages', function (Blueprint $table) {
-            //
+            $table->softDeletes();
         });
     }
 

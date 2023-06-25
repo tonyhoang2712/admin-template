@@ -14,7 +14,7 @@ class AddDeletedAtToSlidersTable extends Migration
     public function up()
     {
         Schema::table('sliders', function (Blueprint $table) {
-            //
+            $table->softDeletes();
         });
     }
 

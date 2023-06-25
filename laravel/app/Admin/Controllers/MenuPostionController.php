@@ -37,7 +37,7 @@ class MenuPostionController extends AdminController
             $datetime = \DateTime::createFromFormat('Y-m-d\TH:i:s.u\Z', $value);
             return $datetime->format('Y-m-d H:i:s');
         });
-
+        
         return $grid;
     }
 

@@ -14,7 +14,7 @@ class AddActiveToSlidersTable extends Migration
     public function up()
     {
         Schema::table('sliders', function (Blueprint $table) {
-            //
+            $table->boolean('active')->default(true);
         });
     }
 

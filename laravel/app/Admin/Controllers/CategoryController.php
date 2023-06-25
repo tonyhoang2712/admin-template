@@ -9,88 +9,111 @@ use Encore\Admin\Grid;
 use Encore\Admin\Show;
 use Illuminate\Support\Str;
 
-class CategoryController extends AdminController
+use App\Http\Controllers\Controller;
+use Encore\Admin\Facades\Admin;
+use Encore\Admin\Layout\Content;
+use Encore\Admin\Controllers\ModelForm;
+use Encore\Admin\Tree;
+use Illuminate\Support\Facades\Route;
+
+
+class CategoryController extends Controller
 {
-    /**
-     * Title for current resource.
-     *
-     * @var string
-     */
-    protected $title = 'Category';
+    use ModelForm;
 
-    /**
-     * Make a grid builder.
-     *
-     * @return Grid
-     */
-    protected function grid()
+    public function index()
     {
-        $grid = new Grid(new Category());
-
-        $grid->column('id', __('Id'));
-        $grid->column('title', __('Title'));
-        $grid->column('slug', __('Slug'));
-        $grid->column('parent.title', __('Parent'));
-        $grid->column('order', __('Order'));
-        $grid->column('image', __('Image'))->image();
-        
-        $grid->column('created_at', __('Created at'))->display(function ($value) {
-            $datetime = \DateTime::createFromFormat('Y-m-d\TH:i:s.u\Z', $value);
-            return $datetime->format('Y-m-d H:i:s');
+        return Admin::content(function (Content $content) {
+            $content->header('Categories');
+            $content->body(
+                Category::tree(function ($tree) {
+                    $tree->branch(function ($branch) {
+                        $src = config('admin.upload.host') . '/' . $branch['image'] ;
+                        $logo = "<img src='$src' style='max-width:30px;max-height:30px' class='img'/>";
+                
+                        return "{$branch['id']} - {$branch['title']} $logo";
+                    });
+                })
+            );
         });
-        $grid->column('updated_at', __('Updated at'))->display(function ($value) {
-            $datetime = \DateTime::createFromFormat('Y-m-d\TH:i:s.u\Z', $value);
-            return $datetime->format('Y-m-d H:i:s');
-        });
-
-        $grid->column('active', __('Active'));
-
-        return $grid;
     }
 
-    /**
-     * Make a show builder.
-     *
-     * @param mixed $id
-     * @return Show
-     */
+    // protected function form()
+    // {
+    //     $form = new Form(new Category());
+
+    //     $form->text('title', 'Title')->rules('required');
+    //     $form->text('slug', 'Slug')->creationRules(['unique:categories,slug']);
+    //     $form->select('parent_id', 'Parent Category')->options(Category::pluck('title', 'id'));
+    //     // $form->image('image', __('Image'))->removable();
+    //     $form->cropper('image', __('Image'))->cRatio(100,100);
+    //     $form->number('order', 'Order')->default(0);
+
+    //     $form->saving(function (Form $form) {
+    //         $form->slug = Str::slug($form->title);
+    //     });
+    //     $form->switch('active', __('Active'))->default(1);
+
+    //     return $form;
+    // }
+
+    public function create(Content $content)
+    {
+        return $content
+            ->header('Create Category')
+            ->body($this->form());
+    }
+
+    public function store()
+    {
+        return $this->form()->store();
+    }
+
+    public function edit($id, Content $content)
+    {
+        return $content
+            ->header('Edit Category')
+            ->body($this->form()->edit($id));
+    }
+
+    protected function form()
+    {
+        return Category::form(function (Form $form) {
+            $form->text('title', 'Title')->rules('required');
+            $form->text('slug', 'Slug')->creationRules(['unique:categories,slug']);
+            $form->select('parent_id', 'Parent Category')->options(
+                Category::pluck('title', 'id')
+            );
+
+            $form->cropper('image', __('Image'))->cRatio(100,100);
+            $form->number('order', 'Order')->default(0);
+    
+            $form->saving(function (Form $form) {
+                $form->slug = Str::slug($form->title);
+            });
+            $form->switch('active', __('Active'))->default(1);
+        });
+    }
+
+    public function show($id, Content $content)
+    {
+        return $content
+            ->header('Category Details')
+            ->body($this->detail($id));
+    }
+
     protected function detail($id)
     {
         $show = new Show(Category::findOrFail($id));
-
         $show->field('id', __('Id'));
         $show->field('title', __('Title'));
         $show->field('slug', __('Slug'));
-        $show->field('parent_id', __('Parent'));
+        $show->field('parent.title', __('Parent'));
         $show->field('order', __('Order'));
-        $show->field('image', __('Image'));
+        $show->field('image', __('Image'))->image();
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
 
         return $show;
-    }
-
-    /**
-     * Make a form builder.
-     *
-     * @return Form
-     */
-    protected function form()
-    {
-        $form = new Form(new Category());
-
-        $form->text('title', 'Title')->rules('required');
-        $form->text('slug', 'Slug')->creationRules(['unique:categories,slug']);
-        $form->select('parent_id', 'Parent Category')->options(Category::pluck('title', 'id'));
-        // $form->image('image', __('Image'))->removable();
-        $form->cropper('image', __('Image'))->cRatio(100,100);
-        $form->number('order', 'Order')->default(0);
-
-        $form->saving(function (Form $form) {
-            $form->slug = Str::slug($form->title);
-        });
-        $form->switch('active', __('Active'))->default(1);
-
-        return $form;
     }
 }
