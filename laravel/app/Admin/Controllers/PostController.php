@@ -9,6 +9,7 @@ use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
+use Illuminate\Support\Str;
 
 class PostController extends AdminController
 {
@@ -31,10 +32,7 @@ class PostController extends AdminController
         $grid->column('id', __('Id'));
         $grid->column('title', __('Title'));
         $grid->column('slug', __('Slug'));
-        $grid->column('description', __('Description'));
-        $grid->column('content', __('Content'));
         $grid->column('category_id', __('Category id'));
-        $grid->column('tag', __('Tag'));
         $grid->column('image', __('Image'));
         $grid->column('created_at', __('Created at'))->display(function ($value) {
             $datetime = \DateTime::createFromFormat('Y-m-d\TH:i:s.u\Z', $value);
@@ -64,7 +62,7 @@ class PostController extends AdminController
         $show->field('description', __('Description'));
         $show->field('content', __('Content'));
         $show->field('category_id', __('Category id'));
-        $show->field('tag', __('Tag'));
+        $show->field('tags', __('Tags'));
         $show->field('image', __('Image'));
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
@@ -86,7 +84,7 @@ class PostController extends AdminController
         $form->text('slug', 'Slug')->creationRules(['unique:posts,slug']);
         $form->textarea('description', __('Description'))->rules('required');
         $form->tmeditor('content', __('Content'))->rules('required');
-        $form->multipleSelect('category_id', 'Category')
+        $form->select('category_id', 'Category')
                 ->options(Category::pluck('title', 'id'))
                 ->rules('required');
         $form->image('image', __('Image'));
@@ -94,7 +92,7 @@ class PostController extends AdminController
         $form->saving(function (Form $form) {
             $form->slug = Str::slug($form->title);
         });
-        $form->multipleSelect('tags', 'Tags')->options(Tag::pluck('title', 'id'));
+        $form->select('tags', 'Tags')->options(Tag::pluck('title', 'id'));
         $form->switch('active', __('Active'))->default(1);
         return $form;
     }

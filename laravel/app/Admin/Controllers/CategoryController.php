@@ -3,24 +3,17 @@
 namespace App\Admin\Controllers;
 
 use App\Models\Category;
-use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
-use Encore\Admin\Grid;
 use Encore\Admin\Show;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Facades\Admin;
 use Encore\Admin\Layout\Content;
-use Encore\Admin\Controllers\ModelForm;
-use Encore\Admin\Tree;
-use Illuminate\Support\Facades\Route;
 
 
 class CategoryController extends Controller
 {
-    use ModelForm;
-
-    public function index()
+    public function index(): Content
     {
         return Admin::content(function (Content $content) {
             $content->header('Categories');
@@ -29,7 +22,7 @@ class CategoryController extends Controller
                     $tree->branch(function ($branch) {
                         $src = !empty($branch['image']) ? config('admin.upload.host') . '/' . $branch['image'] : config('admin.upload.host') . '/no_image.jpeg';
                         $logo = "<img src='$src' style='max-width:30px;max-height:30px' class='img'/>";
-                
+
                         return "{$branch['id']} - {$branch['title']} $logo";
                     });
                 })
@@ -93,7 +86,7 @@ class CategoryController extends Controller
 
             $form->cropper('image', __('Image'))->cRatio(100,100);
             $form->number('order', 'Order')->default(0);
-    
+
             $form->saving(function (Form $form) {
                 $form->slug = Str::slug($form->title);
             });
