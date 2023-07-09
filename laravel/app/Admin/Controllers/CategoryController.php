@@ -27,7 +27,7 @@ class CategoryController extends Controller
             $content->body(
                 Category::tree(function ($tree) {
                     $tree->branch(function ($branch) {
-                        $src = config('admin.upload.host') . '/' . $branch['image'] ;
+                        $src = !empty($branch['image']) ? config('admin.upload.host') . '/' . $branch['image'] : config('admin.upload.host') . '/no_image.jpeg';
                         $logo = "<img src='$src' style='max-width:30px;max-height:30px' class='img'/>";
                 
                         return "{$branch['id']} - {$branch['title']} $logo";

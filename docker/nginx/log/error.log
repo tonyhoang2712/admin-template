@@ -732,3 +732,39 @@
 2023/06/25 09:26:57 [error] 32#32: *2653 directory index of "/var/www/html/public/storage/" is forbidden, client: 172.25.0.1, server: localhost, request: "GET /storage/ HTTP/1.1", host: "localhost:8888", referrer: "http://localhost:8888/admin/categories/create"
 2023/06/25 09:27:00 [error] 32#32: *2614 directory index of "/var/www/html/public/storage/" is forbidden, client: 172.25.0.1, server: localhost, request: "GET /storage/ HTTP/1.1", host: "localhost:8888", referrer: "http://localhost:8888/admin/categories"
 2023/06/25 09:27:01 [error] 32#32: *2653 directory index of "/var/www/html/public/storage/" is forbidden, client: 172.25.0.1, server: localhost, request: "GET /storage/ HTTP/1.1", host: "localhost:8888", referrer: "http://localhost:8888/admin/categories/create"
+2023/07/01 06:21:05 [notice] 1#1: signal 3 (SIGQUIT) received, shutting down
+2023/07/01 06:21:05 [notice] 30#30: gracefully shutting down
+2023/07/01 06:21:05 [notice] 30#30: exiting
+2023/07/01 06:21:05 [notice] 29#29: gracefully shutting down
+2023/07/01 06:21:05 [notice] 32#32: gracefully shutting down
+2023/07/01 06:21:05 [notice] 31#31: gracefully shutting down
+2023/07/01 06:21:05 [notice] 31#31: exiting
+2023/07/01 06:21:05 [notice] 30#30: exit
+2023/07/01 06:21:05 [notice] 29#29: exiting
+2023/07/01 06:21:05 [notice] 29#29: exit
+2023/07/01 06:21:05 [notice] 32#32: exiting
+2023/07/01 06:21:05 [notice] 31#31: exit
+2023/07/01 06:21:05 [notice] 32#32: exit
+2023/07/01 06:21:05 [notice] 1#1: signal 17 (SIGCHLD) received from 30
+2023/07/01 06:21:05 [notice] 1#1: worker process 30 exited with code 0
+2023/07/01 06:21:05 [notice] 1#1: signal 29 (SIGIO) received
+2023/07/01 06:21:05 [notice] 1#1: signal 17 (SIGCHLD) received from 32
+2023/07/01 06:21:05 [notice] 1#1: worker process 32 exited with code 0
+2023/07/01 06:21:05 [notice] 1#1: worker process 29 exited with code 0
+2023/07/01 06:21:05 [notice] 1#1: signal 17 (SIGCHLD) received from 29
+2023/07/01 06:21:05 [notice] 1#1: signal 17 (SIGCHLD) received from 31
+2023/07/01 06:21:05 [notice] 1#1: worker process 31 exited with code 0
+2023/07/01 06:21:05 [notice] 1#1: exit
+2023/07/09 02:12:30 [notice] 1#1: using the "epoll" event method
+2023/07/09 02:12:30 [notice] 1#1: nginx/1.24.0
+2023/07/09 02:12:30 [notice] 1#1: built by gcc 12.2.1 20220924 (Alpine 12.2.1_git20220924-r4) 
+2023/07/09 02:12:30 [notice] 1#1: OS: Linux 5.15.49-linuxkit-pr
+2023/07/09 02:12:30 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2023/07/09 02:12:30 [notice] 1#1: start worker processes
+2023/07/09 02:12:30 [notice] 1#1: start worker process 29
+2023/07/09 02:12:30 [notice] 1#1: start worker process 30
+2023/07/09 02:12:30 [notice] 1#1: start worker process 31
+2023/07/09 02:12:30 [notice] 1#1: start worker process 32
+2023/07/09 02:18:25 [error] 31#31: *60 directory index of "/var/www/html/public/storage/" is forbidden, client: 172.25.0.1, server: localhost, request: "GET /storage/ HTTP/1.1", host: "localhost:8888", referrer: "http://localhost:8888/admin/categories"
+2023/07/09 02:18:38 [error] 31#31: *59 directory index of "/var/www/html/public/storage/" is forbidden, client: 172.25.0.1, server: localhost, request: "GET /storage/ HTTP/1.1", host: "localhost:8888", referrer: "http://localhost:8888/admin/categories/4/edit"
+2023/07/09 02:24:10 [error] 31#31: *80 directory index of "/var/www/html/public/storage/" is forbidden, client: 172.25.0.1, server: localhost, request: "GET /storage/ HTTP/1.1", host: "localhost:8888"
