@@ -136,6 +136,9 @@
       <path value="$PROJECT_DIR$/laravel/vendor/ramsey/collection" />
       <path value="$PROJECT_DIR$/laravel/vendor/ramsey/uuid" />
       <path value="$PROJECT_DIR$/laravel/vendor/monolog/monolog" />
+      <path value="$PROJECT_DIR$/laravel/vendor/laravel/breeze" />
+      <path value="$PROJECT_DIR$/laravel/vendor/tightenco/ziggy" />
+      <path value="$PROJECT_DIR$/laravel/vendor/inertiajs/inertia-laravel" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.3" />

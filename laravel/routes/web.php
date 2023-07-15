@@ -1,8 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\SocialLoginController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -15,15 +14,15 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('welcome');
+})->name('home');
 
-Route::resource('/', HomeController::class)->only([
-    'index'
-]);
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
 
+Route::get('social-auth/{provider}/callback',[SocialLoginController::class,'providerCallback']);
+Route::get('social-auth/{provider}',[SocialLoginController::class,'redirectToProvider'])->name('social.redirect');
 
-
-
-
+require __DIR__.'/auth.php';

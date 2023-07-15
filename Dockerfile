@@ -30,7 +30,7 @@ RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
 RUN apt-get install -y nodejs
 
 # Copy application files
-#COPY . .
+#COPY laravel .
 
 # Set permissions for Laravel storage and bootstrap folders
 #RUN chown -R www-data:www-data \ storage \ bootstrap/cache
@@ -40,6 +40,7 @@ RUN apt-get install -y nodejs
 
 # Generate Laravel application key
 #RUN php artisan key:generate
+#RUN apt-get install -y npm
 
 # Expose port 9000 and start PHP-FPM server
 EXPOSE 9000
