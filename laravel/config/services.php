@@ -31,22 +31,22 @@ return [
     ],
 
     'github' => [
-        'client_id' => env('GITHUB_CLIENT_ID'),
-        'client_secret' => env('GITHUB_CLIENT_SECRET'),
-        'redirect' => env('GITHUB_CALLBACK_URL')
+        'client_id' => '3823005fd736b2fb982f',
+        'client_secret' => '376250762aee1a609a3a9459587b360f6ffef69f',
+        'redirect' => 'http://localhost/social-auth/github/callback'
 //        'redirect' => 'http://example.com/callback-url',
         #'redirect' => '${APP_URL}/social-auth/github/callback',
     ],
 
     'facebook' => [
-        'client_id' => env('FACEBOOK_APP_ID'),
-        'client_secret' => env('FACEBOOK_APP_SECRET'),
-        'redirect' => env('FACEBOOK_APP_CALLBACK_URL'),
+        'client_id' => '976072850398596',
+        'client_secret' => '0b7ee805cd44fd5209d43a9d8cc2ad88',
+        'redirect' => 'http://localhost/social-auth/facebook/callback',
     ],
     'google' => [
-        'client_id' => env('GOOGLE_APP_ID'),
-        'client_secret' => env('GOOGLE_APP_SECRET'),
-        'redirect' => env('GOOGLE_APP_CALLBACK_URL'),
+        'client_id' => '1094140113614-gutchl5d2knndmfrq3rqp76viaa8nrt1.apps.googleusercontent.com',
+        'client_secret' => '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',
+        'redirect' => 'http://localhost/social-auth/google/callback',
     ],
 
 ];
